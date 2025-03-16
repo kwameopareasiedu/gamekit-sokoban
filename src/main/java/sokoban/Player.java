@@ -36,14 +36,16 @@ public class Player extends Prop {
   protected void onUpdate() {
     super.onUpdate();
 
-    if (Input.isKeyJustPressed(Input.KEY_UP)) {
-      move(Facing.UP, row - 1, col);
-    } else if (Input.isKeyJustPressed(Input.KEY_RIGHT)) {
-      move(Facing.RIGHT, row, col + 1);
-    } else if (Input.isKeyJustPressed(Input.KEY_DOWN)) {
-      move(Facing.DOWN, row + 1, col);
-    } else if (Input.isKeyJustPressed(Input.KEY_LEFT)) {
-      move(Facing.LEFT, row, col - 1);
+    if (!level.isSolved()) {
+      if (Input.isKeyJustPressed(Input.KEY_UP)) {
+        move(Facing.UP, row - 1, col);
+      } else if (Input.isKeyJustPressed(Input.KEY_RIGHT)) {
+        move(Facing.RIGHT, row, col + 1);
+      } else if (Input.isKeyJustPressed(Input.KEY_DOWN)) {
+        move(Facing.DOWN, row + 1, col);
+      } else if (Input.isKeyJustPressed(Input.KEY_LEFT)) {
+        move(Facing.LEFT, row, col - 1);
+      }
     }
   }
 
