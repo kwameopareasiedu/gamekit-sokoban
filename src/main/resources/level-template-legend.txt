@@ -1,0 +1,6 @@
+R = Row
+C = Column
+F = Floor tile
+W = Wall tile
+LT = Layout Tile
+OT = Obstacle Tile
