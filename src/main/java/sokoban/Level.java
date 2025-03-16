@@ -12,6 +12,8 @@ import java.util.Objects;
 public class Level {
   public final int rows;
   public final int cols;
+  public final int playerRow;
+  public final int playerCol;
   public final Tile[] grid;
   public final int[] crateGrid;
   public final int[] markerGrid;
@@ -27,6 +29,10 @@ public class Level {
     grid = new Tile[rows * cols];
     crateGrid = new int[rows * cols];
     markerGrid = new int[rows * cols];
+    reader.readLine();
+
+    playerRow = Integer.parseInt(reader.readLine());
+    playerCol = Integer.parseInt(reader.readLine());
     reader.readLine();
 
     for (int r = 0; r < rows; r++) {

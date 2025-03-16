@@ -13,8 +13,8 @@ import java.net.URISyntaxException;
 import static dev.gamekit.utils.MathUtils.toInt;
 
 public class Sokoban extends Scene {
-  private static final int TILE_SIZE = 80;
-  private static final Color CLEAR_COLOR = new Color(0xff536c6c);
+  private static final int TILE_SIZE = 60;
+  private static final Color CLEAR_COLOR = new Color(0xff2b2b2b);
   private static final BufferedImage FLOOR_TILE = IO.loadImage("tiles/floor.png");
   private static final BufferedImage WALL_TILE = IO.loadImage("tiles/wall.png");
   private static final BufferedImage CRATE_TILE = IO.loadImage("tiles/crate.png");
@@ -22,8 +22,11 @@ public class Sokoban extends Scene {
   private static final BufferedImage MARKER_TILE = IO.loadImage("tiles/marker.png");
 
   Level level;
+  Player player;
   int[] crateGrid;
   int[] markerGrid;
+  int tileOffsetLeft = 0;
+  int tileOffsetTop = 0;
 
   public Sokoban() {
     super("Level");
@@ -43,9 +46,13 @@ public class Sokoban extends Scene {
       level = new Level("level-1.txt");
       crateGrid = new int[level.crateGrid.length];
       markerGrid = new int[level.crateGrid.length];
+      tileOffsetLeft = toInt(TILE_SIZE * level.cols / 2.0) - TILE_SIZE / 2;
+      tileOffsetTop = toInt(TILE_SIZE * level.rows / 2.0) - TILE_SIZE / 2;
+      player = new Player(level.playerRow, level.playerCol, tileOffsetLeft, tileOffsetTop);
 
       System.arraycopy(level.crateGrid, 0, crateGrid, 0, level.crateGrid.length);
       System.arraycopy(level.markerGrid, 0, markerGrid, 0, level.crateGrid.length);
+      addChild(player);
     } catch (URISyntaxException | IOException e) {
       throw new RuntimeException(e);
     }
@@ -53,14 +60,10 @@ public class Sokoban extends Scene {
 
   @Override
   public void onRender() {
-    super.onRender();
     Renderer.setColor(CLEAR_COLOR);
     Renderer.clear();
 
     if (level != null) {
-      int tileOffsetLeft = toInt(TILE_SIZE * level.cols / 2.0) - TILE_SIZE / 2;
-      int tileOffsetTop = toInt(TILE_SIZE * level.rows / 2.0);
-
       for (int r = 0; r < level.rows; r++) {
         for (int c = 0; c < level.cols; c++) {
           int x = c * TILE_SIZE - tileOffsetLeft;
@@ -89,5 +92,7 @@ public class Sokoban extends Scene {
         }
       }
     }
+
+    super.onRender();
   }
 }
