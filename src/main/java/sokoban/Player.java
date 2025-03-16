@@ -7,9 +7,10 @@ import dev.gamekit.scene.Prop;
 
 import java.awt.image.BufferedImage;
 
+import static sokoban.Settings.TILE_SIZE;
+
 public class Player extends Prop {
   private static final MoveMode MOVE_MODE = MoveMode.FACE_AND_MOVE;
-  private static final int TILE_SIZE = 60;
   private static final BufferedImage PLAYER_UP = IO.loadImage("tiles/player-up.png");
   private static final BufferedImage PLAYER_RIGHT = IO.loadImage("tiles/player-right.png");
   private static final BufferedImage PLAYER_DOWN = IO.loadImage("tiles/player-down.png");
@@ -44,6 +45,12 @@ public class Player extends Prop {
     } else if (Input.isKeyJustPressed(Input.KEY_LEFT)) {
       move(Facing.LEFT, row, col - 1);
     }
+  }
+
+  void reset() {
+    row = level.playerRow;
+    col = level.playerCol;
+    facing = Facing.RIGHT;
   }
 
   private void move(Facing facing, int row, int col) {

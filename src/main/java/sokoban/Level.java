@@ -4,15 +4,17 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Level {
-  public final int rows;
-  public final int cols;
-  public final int playerRow;
-  public final int playerCol;
   public final Tile[] grid;
   public final int[] crateGrid;
   public final int[] markerGrid;
+  private final LevelData data;
+  public int rows;
+  public int cols;
+  public int playerRow;
+  public int playerCol;
 
   public Level(LevelData data) throws URISyntaxException, IOException {
+    this.data = data;
     rows = data.rows;
     cols = data.cols;
     playerRow = data.playerRow;
@@ -44,5 +46,16 @@ public class Level {
     int temp = crateGrid[toIdx];
     crateGrid[toIdx] = crateGrid[fromIdx];
     crateGrid[fromIdx] = temp;
+  }
+
+  void reset() {
+    rows = data.rows;
+    cols = data.cols;
+    playerRow = data.playerRow;
+    playerCol = data.playerCol;
+
+    System.arraycopy(data.grid, 0, grid, 0, data.grid.length);
+    System.arraycopy(data.crateGrid, 0, crateGrid, 0, data.crateGrid.length);
+    System.arraycopy(data.markerGrid, 0, markerGrid, 0, data.markerGrid.length);
   }
 }

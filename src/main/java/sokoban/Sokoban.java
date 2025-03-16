@@ -2,6 +2,7 @@ package sokoban;
 
 import dev.gamekit.core.Application;
 import dev.gamekit.core.IO;
+import dev.gamekit.core.Input;
 import dev.gamekit.core.Renderer;
 import dev.gamekit.scene.Scene;
 
@@ -11,9 +12,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import static dev.gamekit.utils.MathUtils.toInt;
+import static sokoban.Settings.TILE_SIZE;
 
 public class Sokoban extends Scene {
-  private static final int TILE_SIZE = 60;
   private static final Color CLEAR_COLOR = new Color(0xff2b2b2b);
   private static final BufferedImage FLOOR_TILE = IO.loadImage("tiles/floor.png");
   private static final BufferedImage WALL_TILE = IO.loadImage("tiles/wall.png");
@@ -48,6 +49,16 @@ public class Sokoban extends Scene {
       addChild(player);
     } catch (URISyntaxException | IOException e) {
       throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void onUpdate() {
+    super.onUpdate();
+
+    if (Input.isKeyJustReleased(Input.KEY_SPACE)) {
+      level.reset();
+      player.reset();
     }
   }
 
