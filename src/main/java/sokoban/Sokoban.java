@@ -23,8 +23,6 @@ public class Sokoban extends Scene {
 
   Level level;
   Player player;
-  int[] crateGrid;
-  int[] markerGrid;
   int tileOffsetLeft = 0;
   int tileOffsetTop = 0;
 
@@ -43,15 +41,10 @@ public class Sokoban extends Scene {
     super.onStart();
 
     try {
-      level = new Level("level-1.txt");
-      crateGrid = new int[level.crateGrid.length];
-      markerGrid = new int[level.crateGrid.length];
+      level = new Level(LevelData.LEVEL_1);
       tileOffsetLeft = toInt(TILE_SIZE * level.cols / 2.0) - TILE_SIZE / 2;
       tileOffsetTop = toInt(TILE_SIZE * level.rows / 2.0) - TILE_SIZE / 2;
-      player = new Player(level.playerRow, level.playerCol, tileOffsetLeft, tileOffsetTop);
-
-      System.arraycopy(level.crateGrid, 0, crateGrid, 0, level.crateGrid.length);
-      System.arraycopy(level.markerGrid, 0, markerGrid, 0, level.crateGrid.length);
+      player = new Player(level, tileOffsetLeft, tileOffsetTop);
       addChild(player);
     } catch (URISyntaxException | IOException e) {
       throw new RuntimeException(e);
@@ -70,8 +63,8 @@ public class Sokoban extends Scene {
           int y = r * TILE_SIZE - tileOffsetTop;
           int idx = r * level.cols + c;
           Tile tile = level.grid[idx];
-          int tileCrate = crateGrid[idx];
-          int tileMarker = markerGrid[idx];
+          int crateTile = level.crateGrid[idx];
+          int markerTile = level.markerGrid[idx];
 
           if (tile == Tile.FLOOR) {
             Renderer.drawImage(FLOOR_TILE, x, -y, TILE_SIZE, TILE_SIZE);
@@ -79,13 +72,13 @@ public class Sokoban extends Scene {
             Renderer.drawImage(WALL_TILE, x, -y, TILE_SIZE, TILE_SIZE);
           }
 
-          if (tileMarker == 1) {
+          if (markerTile == 1) {
             Renderer.drawImage(MARKER_TILE, x, -y, TILE_SIZE, TILE_SIZE);
           }
 
-          if (tileCrate == 1) {
+          if (crateTile == 1) {
             Renderer.drawImage(
-              tileMarker == 1 ? CRATE_SET_TILE : CRATE_TILE,
+              markerTile == 1 ? CRATE_SET_TILE : CRATE_TILE,
               x, -y, TILE_SIZE, TILE_SIZE
             );
           }
