@@ -16,6 +16,8 @@ import static sokoban.Settings.TILE_SIZE;
 
 public class Sokoban extends Scene {
   private static final Color CLEAR_COLOR = new Color(0xff2b2b2b);
+  private static final BufferedImage HELP_IMG = IO.loadImage("sokoban.png");
+  private static final BufferedImage COMPLETE_IMG = IO.loadImage("sokoban-thanks.png");
   private static final BufferedImage FLOOR_TILE = IO.loadImage("tiles/floor.png");
   private static final BufferedImage WALL_TILE = IO.loadImage("tiles/wall.png");
   private static final BufferedImage CRATE_TILE = IO.loadImage("tiles/crate.png");
@@ -43,7 +45,7 @@ public class Sokoban extends Scene {
 
     try {
       level = new Level(LevelData.LEVEL_1);
-      tileOffsetLeft = toInt(TILE_SIZE * level.cols / 2.0) - TILE_SIZE / 2;
+      tileOffsetLeft = toInt(TILE_SIZE * level.cols / 2.0) - TILE_SIZE / 2 - 256;
       tileOffsetTop = toInt(TILE_SIZE * level.rows / 2.0) - TILE_SIZE / 2;
       player = new Player(level, tileOffsetLeft, tileOffsetTop);
       addChild(player);
@@ -66,6 +68,8 @@ public class Sokoban extends Scene {
   public void onRender() {
     Renderer.setColor(CLEAR_COLOR);
     Renderer.clear();
+
+    Renderer.drawImage(HELP_IMG, -400, 50, 518, 800);
 
     if (level != null) {
       for (int r = 0; r < level.rows; r++) {
@@ -98,5 +102,8 @@ public class Sokoban extends Scene {
     }
 
     super.onRender();
+
+    if (level.isSolved())
+      Renderer.drawImage(COMPLETE_IMG, 0, 0, 1500, 556);
   }
 }
