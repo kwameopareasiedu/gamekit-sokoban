@@ -12,9 +12,9 @@ import java.util.Objects;
 public class Level {
   public final int rows;
   public final int cols;
-  public final Tile[] tileGrid;
-  public final int[] startCrateGrid;
-  public final int[] endCrateGrid;
+  public final Tile[] grid;
+  public final int[] crateGrid;
+  public final int[] markerGrid;
 
   public Level(String levelFilePath) throws URISyntaxException, IOException {
     URL fileUrl = Level.class.getClassLoader().getResource(levelFilePath);
@@ -24,17 +24,17 @@ public class Level {
 
     rows = Integer.parseInt(reader.readLine());
     cols = Integer.parseInt(reader.readLine());
-    tileGrid = new Tile[rows * cols];
-    startCrateGrid = new int[rows * cols];
-    endCrateGrid = new int[rows * cols];
+    grid = new Tile[rows * cols];
+    crateGrid = new int[rows * cols];
+    markerGrid = new int[rows * cols];
     reader.readLine();
 
     for (int r = 0; r < rows; r++) {
       String line = reader.readLine();
-      String[] tileCodes = line.split(",");
+      String[] tileRow = line.split(",");
 
       for (int c = 0; c < cols; c++) {
-        tileGrid[r * cols + c] = Tile.parse(tileCodes[c]);
+        grid[r * cols + c] = Tile.parse(tileRow[c]);
       }
     }
 
@@ -42,10 +42,10 @@ public class Level {
 
     for (int r = 0; r < rows; r++) {
       String line = reader.readLine();
-      String[] cratePresence = line.split(",");
+      String[] crateRow = line.split(",");
 
       for (int c = 0; c < cols; c++) {
-        startCrateGrid[r * cols + c] = Integer.parseInt(cratePresence[c]);
+        crateGrid[r * cols + c] = Integer.parseInt(crateRow[c]);
       }
     }
 
@@ -53,10 +53,10 @@ public class Level {
 
     for (int r = 0; r < rows; r++) {
       String line = reader.readLine();
-      String[] cratePresence = line.split(",");
+      String[] markerRow = line.split(",");
 
       for (int c = 0; c < cols; c++) {
-        endCrateGrid[r * cols + c] = Integer.parseInt(cratePresence[c]);
+        markerGrid[r * cols + c] = Integer.parseInt(markerRow[c]);
       }
     }
 
