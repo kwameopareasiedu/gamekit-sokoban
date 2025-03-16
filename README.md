@@ -21,6 +21,7 @@ Follow these steps to run the game:
 3. Open a terminal in the project root and run `mvn install` to download dependencies
 4. Run the `Sokoban.main()` method via your IDE. If you use IntelliJ IDEA, this is the green play button in the menu
    bar.
+
 ![](./docs/intellij-run.png)
 
 ## Contributors
