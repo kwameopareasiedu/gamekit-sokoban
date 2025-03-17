@@ -4,6 +4,7 @@ import dev.gamekit.core.Application;
 import dev.gamekit.core.IO;
 import dev.gamekit.core.Input;
 import dev.gamekit.core.Renderer;
+import dev.gamekit.core.Window;
 import dev.gamekit.scene.Scene;
 
 import java.awt.*;
@@ -16,13 +17,13 @@ import static sokoban.Settings.TILE_SIZE;
 
 public class Sokoban extends Scene {
   private static final Color CLEAR_COLOR = new Color(0xff2b2b2b);
-  private static final BufferedImage HELP_IMG = IO.loadImage("sokoban.png");
-  private static final BufferedImage COMPLETE_IMG = IO.loadImage("sokoban-thanks.png");
-  private static final BufferedImage FLOOR_TILE = IO.loadImage("tiles/floor.png");
-  private static final BufferedImage WALL_TILE = IO.loadImage("tiles/wall.png");
-  private static final BufferedImage CRATE_TILE = IO.loadImage("tiles/crate.png");
-  private static final BufferedImage CRATE_SET_TILE = IO.loadImage("tiles/crate-set.png");
-  private static final BufferedImage MARKER_TILE = IO.loadImage("tiles/marker.png");
+  private static final BufferedImage HELP_IMG = IO.loadImageResource("sokoban.png");
+  private static final BufferedImage COMPLETE_IMG = IO.loadImageResource("sokoban-thanks.png");
+  private static final BufferedImage FLOOR_TILE = IO.loadImageResource("tiles/floor.png");
+  private static final BufferedImage WALL_TILE = IO.loadImageResource("tiles/wall.png");
+  private static final BufferedImage CRATE_TILE = IO.loadImageResource("tiles/crate.png");
+  private static final BufferedImage CRATE_SET_TILE = IO.loadImageResource("tiles/crate-set.png");
+  private static final BufferedImage MARKER_TILE = IO.loadImageResource("tiles/marker.png");
 
   Level level;
   Player player;
@@ -35,6 +36,7 @@ public class Sokoban extends Scene {
 
   public static void main(String[] args) {
     Application app = new Application("Sokoban") { };
+    Window.getInstance().maximize();
     app.loadScene(new Sokoban());
     app.run();
   }

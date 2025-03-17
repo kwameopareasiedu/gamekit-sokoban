@@ -11,10 +11,10 @@ import static sokoban.Settings.TILE_SIZE;
 
 public class Player extends Prop {
   private static final MoveMode MOVE_MODE = MoveMode.FACE_AND_MOVE;
-  private static final BufferedImage PLAYER_UP = IO.loadImage("tiles/player-up.png");
-  private static final BufferedImage PLAYER_RIGHT = IO.loadImage("tiles/player-right.png");
-  private static final BufferedImage PLAYER_DOWN = IO.loadImage("tiles/player-down.png");
-  private static final BufferedImage PLAYER_LEFT = IO.loadImage("tiles/player-left.png");
+  private static final BufferedImage PLAYER_UP = IO.loadImageResource("tiles/player-up.png");
+  private static final BufferedImage PLAYER_RIGHT = IO.loadImageResource("tiles/player-right.png");
+  private static final BufferedImage PLAYER_DOWN = IO.loadImageResource("tiles/player-down.png");
+  private static final BufferedImage PLAYER_LEFT = IO.loadImageResource("tiles/player-left.png");
 
   final Level level;
   final int offsetLeft;
@@ -76,7 +76,6 @@ public class Player extends Prop {
 
         this.row = row;
         this.col = col;
-
       }
     }
 
